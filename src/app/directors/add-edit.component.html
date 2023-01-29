@@ -1,0 +1,144 @@
+﻿<h1>{{title}}</h1>
+<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="mb-3 col">
+            <label class="form-label">Name</label>
+            <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required">Name is required</div>
+            </div>
+        </div>
+        <div class="mb-3 col">
+            <label class="form-label">Description</label>
+            <input type="text" formControlName="description" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col">
+            <label class="form-label">Duration</label>
+            <input type="time" formControlName="duration" class="form-control" />
+        </div>
+        <div class="mb-3 col">
+            <label class="form-label">Budget</label>
+            <input type="number" formControlName="budget" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col">
+            <label class="form-label">Start</label>
+            <input type="date" formControlName="start" class="form-control" />
+        </div>
+        <div class="mb-3 col">
+            <label class="form-label">End</label>
+            <input type="date" formControlName="end" class="form-control" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <button [disabled]="submitting" class="btn btn-primary">
+            <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+            Save
+        </button>
+        <a routerLink="/directors" class="btn btn-link">Cancel</a>
+    </div>
+</form>
+
+<h3>Budget balance: {{ budgetBalance }}</h3>
+
+<br>
+<h1>Actors on movie</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="w-25">First Name</th>
+            <th class="w-25">Last Name</th>
+            <th class="w-25">Budget</th>
+            <th class="w-25"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let actor of actorsOnMovie">
+            <td>{{actor.firstName}}</td>
+            <td>{{actor.lastName}}</td>
+            <td>{{actor.budget}}</td>
+            <td style="white-space: nowrap">
+                <button (click)="removeActor(actor)" class="btn btn-sm btn-danger">
+                    <span>Remove actor</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!actorsOnMovie">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+
+<h1>Actors requests</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="w-25">First Name</th>
+            <th class="w-25">Last Name</th>
+            <th class="w-25">Budget</th>
+            <th class="w-25"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let actor of actorsRequest">
+            <td>{{actor.firstName}}</td>
+            <td>{{actor.lastName}}</td>
+            <td>{{actor.budget}}</td>
+            <td style="white-space: nowrap">
+                <button (click)="confirmActorRequest(actor)" class="btn btn-sm btn-success">
+                    <span>Confirm request</span>
+                </button>
+                <button (click)="removeActorRequest(actor)" class="btn btn-sm btn-danger">
+                    <span>Delete request</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!actorsRequest">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+<h1>All actors</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="w-25">First Name</th>
+            <th class="w-25">Last Name</th>
+            <th class="w-25">Budget</th>
+            <th class="w-25"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let actor of allActors">
+            <td>{{actor.firstName}}</td>
+            <td>{{actor.lastName}}</td>
+            <td>{{actor.budget}}</td>
+            <td style="white-space: nowrap">
+                <button (click)="addActor(actor)" class="btn btn-sm btn-success">
+                    <span>Add actor</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!allActors">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>

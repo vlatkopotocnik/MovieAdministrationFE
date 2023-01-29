@@ -1,0 +1,37 @@
+﻿<h1>Director</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Add Movie</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 30%">Name</th>
+            <th style="width: 30%">Description</th>
+            <th style="width: 30%">Duration</th>
+            <th style="width: 30%">Budget</th>
+            <th style="width: 30%">Start</th>
+            <th style="width: 30%">End</th>
+            <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let movie of movies">
+            <td>{{movie.name}}</td>
+            <td>{{movie.description}}</td>
+            <td>{{movie.duration}}</td>
+            <td>{{movie.budget}}</td>
+            <td>{{movie.start | date: 'dd/MM/yyyy'}}</td>
+            <td>{{movie.end | date: 'dd/MM/yyyy'}}</td>
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{movie.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
+                <button (click)="deleteMovie(movie.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="movie.isDeleting">
+                    <span *ngIf="movie.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!movie.isDeleting">Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!movies">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
