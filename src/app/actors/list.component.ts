@@ -37,44 +37,15 @@ export class ListComponent implements OnInit {
                     this.form.patchValue(x);
                     this.loading = false;
                 });
+            this.accountService.getCurrentRolesInMovies(this.actorId)
+                .pipe(first())
+                .subscribe(x => {
+                    this.currentRolesMovies = x as Array<Movie>;
+                });
+            this.accountService.getAllMovies()
+                .pipe(first())
+                .subscribe(movies => this.availableMovies = movies as Array<Movie>);
         }
-        var m = new Movie();
-        m.id = 1;
-        m.description = "Description";
-        m.end = "2019-01-16";
-        m.start = "2019-01-16";
-        m.name = "Die Easy";
-        m.duration = new Date().toLocaleTimeString();
-
-        m.isActing = true;
-        m.isRequested = false;
-        this.currentRolesMovies?.push(m);
-        var m = new Movie();
-        m.id = 2;
-        m.description = "Description";
-        m.end = "2019-01-16";
-        m.start = "2019-01-16";
-        m.name = "Die Easy";
-        m.duration = new Date().toLocaleTimeString();
-        m.isActing = false;
-        m.isRequested = true;
-        this.currentRolesMovies?.push(m);
-
-        var m = new Movie();
-        m.id = 3;
-        m.description = "Description";
-        m.end = "2019-01-16";
-        m.start = "2019-01-16";
-        m.name = "Die Easy";
-        m.duration = new Date().toLocaleTimeString();
-
-        this.availableMovies?.push(m);
-        // this.actorId = this.route.snapshot.params['id'];
-        // this.accountService.getCurrentRolesInMovies(this.actorId)
-        // .pipe(first())
-        // .subscribe(x => {
-        //     this.currentRolesMovies = x as Array<Movie>;
-        // });
     }
 
     deleteCurrentRolesMovies(id: number) {
@@ -130,4 +101,15 @@ export class ListComponent implements OnInit {
             ? this.accountService.update(this.actorId!, this.form.value)
             : this.accountService.register(this.form.value);
     }
+
+    public isExpired(movie: Movie) {
+        if (movie.start) {
+            return !(new Date(movie.start).getTime() < new Date().getTime());
+        }
+        return true;
+    }
+}
+
+function moment(experationDate: any) {
+    throw new Error('Function not implemented.');
 }

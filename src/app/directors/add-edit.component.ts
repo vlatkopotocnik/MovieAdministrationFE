@@ -46,70 +46,12 @@ export class AddEditComponent implements OnInit {
             // edit mode
             this.title = 'Edit Movie';
             this.loading = true;
-
-            var m = new Movie();
-            m.id = 1;
-            m.budget = 60000;
-            this.budgetBalance = m.budget;
-            m.description = "Description";
-            m.end = "2019-01-16";  
-            m.start = "2019-01-16";  
-            m.name = "Die Easy";
-            m.duration = new Date().toLocaleTimeString();;
-            this.loading = false;
-            this.form.patchValue(m);
-            // this.accountService.getMovieById(this.movie.id)
-            //     .pipe(first())
-            //     .subscribe(x => {
-            //         this.form.patchValue(x);
-            //         this.loading = false;
-            //     });
-            var a = new User();
-            a.firstName = "FristName";
-            a.id = 1;
-            a.isActing = false;
-            a.lastName = "LastName";
-            a.budget = 10000;
-            this.allActors?.push(a);            var a = new User();
-            a.firstName = "FristName";
-            a.id = 2;
-            a.isActing = false;
-            a.lastName = "LastName";
-            a.budget = 10000;
-            this.allActors?.push(a);            var a = new User();
-            a.firstName = "FristName";
-            a.id = 3;
-            a.isActing = false;
-            a.lastName = "LastName";
-            a.budget = 10000;
-            this.allActors?.push(a);            var a = new User();
-            a.firstName = "FristName";
-            a.id = 4;
-            a.isActing = false;
-            a.lastName = "LastName";
-            a.budget = 10000;
-            this.allActors?.push(a);
-            var a = new User();
-            a.firstName = "FristName";
-            a.id = 5;
-            a.isActing = false;
-            a.lastName = "LastName";
-            a.budget = 10000;
-            this.allActors?.push(a);
-            var a = new User();
-            a.firstName = "FristName";
-            a.id = 6;
-            a.isActing = false;
-            a.lastName = "LastName";
-            a.budget = 20000;
-            this.actorsRequest?.push(a);
-            var a = new User();
-            a.firstName = "FristName";
-            a.id = 7;
-            a.isActing = false;
-            a.lastName = "LastName";
-            a.budget = 40000;
-            this.actorsRequest?.push(a);
+            this.accountService.getMovieById(this.movie.id)
+                .pipe(first())
+                .subscribe(x => {
+                    this.form.patchValue(x);
+                    this.loading = false;
+                });
         }
     }
 

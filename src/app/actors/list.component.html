@@ -42,10 +42,10 @@
             <td>{{movie.start | date: 'dd/MM/yyyy'}}</td>
             <td>{{movie.end | date: 'dd/MM/yyyy'}}</td>
             <td style="white-space: nowrap">
-                <a *ngIf="!movie.isActing" class="btn btn-sm btn-primary me-1">Pending approval</a>
                 <button (click)="deleteCurrentRolesMovies(movie.id)" class="btn btn-sm btn-danger">
                     <span>Delete</span>
                 </button>
+                <a *ngIf="!movie.isActing" class="btn btn-sm btn-primary me-1">Pending approval</a>
             </td>
         </tr>
         <tr *ngIf="!currentRolesMovies">
@@ -76,8 +76,11 @@
             <td>{{movie.start | date: 'dd/MM/yyyy'}}</td>
             <td>{{movie.end | date: 'dd/MM/yyyy'}}</td>
             <td style="white-space: nowrap">
-                <button (click)="sendMovieRequest(movie.id)" class="btn btn-sm btn-success">
+                <button (click)="sendMovieRequest(movie.id)" class="btn btn-sm btn-success" *ngIf="isExpired(movie)">
                     <span>Send</span>
+                </button>
+                <button (click)="sendMovieRequest(movie.id)" class="btn btn-sm btn-warning" *ngIf="!isExpired(movie)">
+                    <span>Filming started</span>
                 </button>
             </td>
         </tr>
