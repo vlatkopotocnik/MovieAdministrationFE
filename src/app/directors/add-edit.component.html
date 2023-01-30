@@ -92,7 +92,7 @@
             <td>{{actor.lastName}}</td>
             <td>{{actor.budget}}</td>
             <td style="white-space: nowrap">
-                <button (click)="confirmActorRequest(actor)" class="btn btn-sm btn-success">
+                <button (click)="confirmActorRequest(actor)" class="btn btn-sm btn-success" *ngIf="budgetBalance - actor.budget >= 0">
                     <span>Confirm request</span>
                 </button>
                 <button (click)="removeActorRequest(actor)" class="btn btn-sm btn-danger">
@@ -125,7 +125,7 @@
             <td>{{actor.lastName}}</td>
             <td>{{actor.budget}}</td>
             <td style="white-space: nowrap">
-                <button (click)="addActor(actor)" class="btn btn-sm btn-success">
+                <button (click)="addActor(actor)" class="btn btn-sm btn-success" *ngIf="budgetBalance - actor.budget >= 0">
                     <span>Add actor</span>
                 </button>
             </td>
