@@ -11,19 +11,19 @@ export class ListComponent implements OnInit {
     constructor(private accountService: AccountService) {}
 
     ngOnInit() {
-        // var m = new Movie();
-        // m.id = 1;
-        // m.budget = 60000;
-        // m.description = "Description";
-        // m.end = new Date(); 
-        // m.start = new Date();
-        // m.name = "Die Easy";
-        // m.duration = new Date();
+        var m = new Movie();
+        m.id = 1;
+        m.budget = 60000;
+        m.description = "Description";
+        m.end = "2019-01-16";  
+        m.start = "2019-01-16";  
+        m.name = "Die Easy";
+        m.duration = new Date().toLocaleTimeString();;
 
-        // this.movies?.push(m);
+        this.movies?.push(m);
         this.accountService.getAllMovies()
             .pipe(first())
-            .subscribe(movies => this.movies = movies);
+            .subscribe(movies => this.movies = movies as Array<Movie>);
     }
 
     deleteMovie(id: number) {

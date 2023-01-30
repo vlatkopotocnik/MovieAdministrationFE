@@ -22,7 +22,7 @@
             <td>{{movie.end | date: 'dd/MM/yyyy'}}</td>
             <td style="white-space: nowrap">
                 <a routerLink="edit/{{movie.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
-                <button (click)="deleteMovie(movie.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="movie.isDeleting">
+                <button (click)="deleteMovie(movie.id)" class="btn btn-sm btn-danger" [disabled]="movie.isDeleting">
                     <span *ngIf="movie.isDeleting" class="spinner-border spinner-border-sm"></span>
                     <span *ngIf="!movie.isDeleting">Delete</span>
                 </button>

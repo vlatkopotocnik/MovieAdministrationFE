@@ -52,10 +52,10 @@ export class AddEditComponent implements OnInit {
             m.budget = 60000;
             this.budgetBalance = m.budget;
             m.description = "Description";
-            m.end = new Date();
-            m.start = new Date();
+            m.end = "2019-01-16";  
+            m.start = "2019-01-16";  
             m.name = "Die Easy";
-            m.duration = new Date();
+            m.duration = new Date().toLocaleTimeString();;
             this.loading = false;
             this.form.patchValue(m);
             // this.accountService.getMovieById(this.movie.id)
@@ -143,7 +143,7 @@ export class AddEditComponent implements OnInit {
     }
 
     private saveMovie() {
-        // create or update user based on id param
+        // create or update movie based on id param
         return this.movie.id
             ? this.accountService.updateMovie(this.movie.id!, this.form.value)
             : this.accountService.addMovie(this.form.value);

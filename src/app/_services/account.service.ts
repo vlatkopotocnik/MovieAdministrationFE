@@ -58,10 +58,6 @@ export class AccountService {
         return this.http.get<User[]>(`${environment.apiUrl}/users`);
     }
 
-    getAllMovies() {
-        return this.http.get<Movie[]>(`${environment.apiUrl}/Movies`);
-    }
-
     getById(id: number) {
         return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
     }
@@ -93,6 +89,9 @@ export class AccountService {
             }));
     }
 
+    getAllMovies() {
+        return this.http.get(`${environment.apiUrl}/Movies`);
+    }
     
     deleteMovie(id: number) {
         return this.http.delete(`${environment.apiUrl}/movies/${id}`)
@@ -102,7 +101,7 @@ export class AccountService {
     }
 
     getMovieById(id: number) {
-        return this.http.get<User>(`${environment.apiUrl}/movies/${id}`);
+        return this.http.get(`${environment.apiUrl}/movies/${id}`);
     }
 
     addMovie(movie: Movie) {
@@ -124,4 +123,10 @@ export class AccountService {
                 return x;
             }));
     }
+
+
+    getCurrentRolesInMovies(actorId: number) {
+        return this.http.get(`${environment.apiUrl}/current-roles-in-movies/${actorId}`);
+    }
+
 }

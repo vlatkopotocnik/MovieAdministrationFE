@@ -2,9 +2,11 @@
     id!: number;
     name?: string;
     description?: string;
-    duration?: Date;
+    duration?: string;
     budget?: number;
-    start?: Date;
-    end?: Date;
+    start?: string;
+    end?: string;
     isDeleting?: boolean;
+    isActing = false;
+    isRequested = false;
 }

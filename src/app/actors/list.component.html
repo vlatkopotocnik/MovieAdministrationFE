@@ -1,28 +1,87 @@
-﻿<h1>Users</h1>
-<a routerLink="add" class="btn btn-sm btn-success mb-2">Add User</a>
+﻿<h1>Actor</h1>
+
+<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="mb-3 col">
+            <label class="form-label">Actor budget</label>
+            <input type="number" formControlName="budget" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.budget.errors }" />
+            <div *ngIf="submitted && f.budget.errors" class="invalid-feedback">
+                <div *ngIf="f.budget.errors.required">Budget is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <button [disabled]="submitting" class="btn btn-primary">
+            <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+            Save
+        </button>
+        <a routerLink="/users" class="btn btn-link">Cancel</a>
+    </div>
+</form>
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>
+
+<h1>Current roles in movies</h1>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th style="width: 30%">First Name</th>
-            <th style="width: 30%">Last Name</th>
-            <th style="width: 30%">Username</th>
+            <th style="width: 30%">Name</th>
+            <th style="width: 30%">Description</th>
+            <th style="width: 30%">Duration</th>
+            <th style="width: 30%">Start</th>
+            <th style="width: 30%">End</th>
             <th style="width: 10%"></th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let user of users">
-            <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
-            <td>{{user.username}}</td>
+        <tr *ngFor="let movie of currentRolesMovies">
+            <td>{{movie.name}}</td>
+            <td>{{movie.description}}</td>
+            <td>{{movie.duration}}</td>
+            <td>{{movie.start | date: 'dd/MM/yyyy'}}</td>
+            <td>{{movie.end | date: 'dd/MM/yyyy'}}</td>
             <td style="white-space: nowrap">
-                <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
-                <button (click)="deleteUser(user.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
-                    <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!user.isDeleting">Delete</span>
+                <a *ngIf="!movie.isActing" class="btn btn-sm btn-primary me-1">Pending approval</a>
+                <button (click)="deleteCurrentRolesMovies(movie.id)" class="btn btn-sm btn-danger">
+                    <span>Delete</span>
                 </button>
             </td>
         </tr>
-        <tr *ngIf="!users">
+        <tr *ngIf="!currentRolesMovies">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h1>Available movies</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 30%">Name</th>
+            <th style="width: 30%">Description</th>
+            <th style="width: 30%">Duration</th>
+            <th style="width: 30%">Start</th>
+            <th style="width: 30%">End</th>
+            <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let movie of availableMovies">
+            <td>{{movie.name}}</td>
+            <td>{{movie.description}}</td>
+            <td>{{movie.duration}}</td>
+            <td>{{movie.start | date: 'dd/MM/yyyy'}}</td>
+            <td>{{movie.end | date: 'dd/MM/yyyy'}}</td>
+            <td style="white-space: nowrap">
+                <button (click)="sendMovieRequest(movie.id)" class="btn btn-sm btn-success">
+                    <span>Send</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!availableMovies">
             <td colspan="4" class="text-center">
                 <span class="spinner-border spinner-border-lg align-center"></span>
             </td>
